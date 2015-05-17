@@ -5,7 +5,24 @@
 
 <style>
 
+	body {
+		text-align: center;
+		background-color: lime;
+	}
+
+	game {
+		display: block;
+		margin-top: 50px;
+		text-align: center;
+	}
+
 	screen {
+
+		margin: auto;
+		margin-top: 20px;
+
+		display: block;
+		position: relative;
 
 		background-color: black;
 
@@ -27,6 +44,7 @@
 	}
 
 	clown {
+		z-index: 2;
 	    background-image: url("http://j5bot.github.io/generic-vocabulary-fest/img/clown-sprite1.png");
 	    
 	    -webkit-animation: clown-animation 3s steps(8) infinite;
@@ -62,6 +80,7 @@
 	}
 
 	balloon {
+		z-index: 1;
 	    background-image: url("http://j5bot.github.io/generic-vocabulary-fest/img/balloon-sprite1.png");
 	    
 	    -webkit-animation: balloon-animation 6s steps(10) infinite;
@@ -101,18 +120,24 @@
 </head>
 <body>
 
-<screen>
+<game>
 
-	<clown sprite></clown>
+	<h1><img src="img/title.png" alt="GENERIC VOCABULARY TEST" /></h1>
+	<screen>
 
-	<balloon sprite></balloon>
-	<balloon sprite></balloon>
-	<balloon sprite></balloon>
-	<balloon sprite></balloon>
-	<balloon sprite></balloon>
+		<clown sprite></clown>
 
-</screen>
+		<balloon sprite></balloon>
+		<balloon sprite></balloon>
+		<balloon sprite></balloon>
+		<balloon sprite></balloon>
+		<balloon sprite></balloon>
 
+	</screen>
+
+</game>
+
+<script src="howler.js"></script>
 <script>
 
 	(function (undefined) {
@@ -120,6 +145,11 @@
 		'use strict';
 
 		var spriteWidth = 82, spriteHeight = 123;
+
+		var sounds = [
+			new Howl({ urls: ['sounds/hey-hey.mp3']}),
+			new Howl({ urls: ['sounds/laugh.mp3']})
+		];
 
 		function randomInteger (min,max) {
 			var range = max - min;
@@ -158,17 +188,50 @@
 					}
 
 					balloon.position = position;
+					positions[position] = balloon;
 				}
 
 				SpriteManager.moveSprite(balloon, 0);
 
 			}
 
-			SrpiteManager.moveSprite(clown, 0);
+			positions[0] = clown;
+			SpriteManager.moveSprite(clown, 0);
+
+			document.onkeydown = handleKeyDown;
 
 		}
 
+		function handleKeyDown (event) {
+			var key = event.charCode || event.keyCode,
+				move;
+
+			switch (key) {
+				case 37:
+					move = -1;
+				break;
+				case 38:
+					move = -10
+				break;
+				case 39:
+					move = 1;
+				break;
+				case 40:
+					move = 10;
+				break;
+			}
+
+			SpriteManager.moveSprite(clown, move);
+		}
+
 		var SpriteManager = {
+
+			collision: function collision (sprite, occupier) {
+
+				sounds[randomInteger(0,1)].play();
+				occupier.style.left = '-30000px';
+
+			},
 
 			/**
 			shift by -1 to move left, 1 to move right, -10 to move up, +10 to move down,
@@ -176,39 +239,35 @@
 			**/
 			moveSprite: function moveSprite (sprite, shift) {
 
-				switch (shift) {
+				var tryPosition = sprite.position + shift;
 
-					case 0:
+				var left = tryPosition % 10,
+					top = (tryPosition - left) / 10;
 
-						var left = sprite.position % 10,
-							top = sprite.position - left / 10;
-
-						sprite.style.left = (left * spriteWidth) + 'px';
-						sprite.style.top = (top * spriteHeight) + 'px';
-
-					break;
-
-					case -1:
-
-					break;
-
-					case 1:
-
-					break;
-
-					case -10:
-
-					break;
-
-					case 10:
-
-					break;
-
+				if (
+					left < 0 || left > cols - 1 || top < 0 || top > rows - 1 ||
+						(left === 0 && shift === 1) || (left === cols - 1 && shift === -1)
+				) {
+					return;
 				}
+
+				positions[sprite.position] = null;
+
+				sprite.style.left = (left * spriteWidth) + 'px';
+				sprite.style.top = (top * spriteHeight) + 'px';
+
+				if ( positions[tryPosition] ) {
+					SpriteManager.collision(sprite, positions[tryPosition]);
+				}
+
+				positions[tryPosition] = sprite;
+				sprite.position = tryPosition;
 
 			}
 
 		};
+
+		initialize();
 
 
 	}).call(this);
