@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Generic Vocabulary Fest</title>
+
+<style>
+
+	screen {
+
+		width: 820px;
+		height: 615px;
+
+	}
+
+	[sprite] {
+		position: absolute;
+		display: block;
+		width: 77px;
+		height: 123px;
+		margin-left: 3px;
+		margin-right: 2px;
+
+		top: 0px;
+		left: -30000px;
+	}
+
+	clown {
+	    background-image: url("http://j5bot.github.io/generic-vocabulary-fest/img/clown-sprite1.png");
+	    
+	    -webkit-animation: clown-animation 3s steps(8) infinite;
+	       -moz-animation: clown-animation 3s steps(8) infinite;
+	        -ms-animation: clown-animation 3s steps(8) infinite;
+	         -o-animation: clown-animation 3s steps(8) infinite;
+	            animation: clown-animation 3s steps(8) infinite;
+	}
+
+	@-webkit-keyframes clown-animation {
+	   from { background-position:    0px; }
+	     to { background-position: -616px; }
+	}
+
+	@-moz-keyframes clown-animation {
+	   from { background-position:    0px; }
+	     to { background-position: -616px; }
+	}
+
+	@-ms-keyframes clown-animation {
+	   from { background-position:    0px; }
+	     to { background-position: -616px; }
+	}
+
+	@-o-keyframes clown-animation {
+	   from { background-position:    0px; }
+	     to { background-position: -616px; }
+	}
+
+	@keyframes clown-animation {
+	   from { background-position:    0px; }
+	     to { background-position: -616px; }
+	}
+
+	balloon {
+	    background-image: url("http://j5bot.github.io/generic-vocabulary-fest/img/balloon-sprite1.png");
+	    
+	    -webkit-animation: balloon-animation 6s steps(10) infinite;
+	       -moz-animation: balloon-animation 6s steps(10) infinite;
+	        -ms-animation: balloon-animation 6s steps(10) infinite;
+	         -o-animation: balloon-animation 6s steps(10) infinite;
+	            animation: balloon-animation 6s steps(10) infinite;
+	}
+
+	@-webkit-keyframes balloon-animation {
+	   from { background-position:    0px; }
+	     to { background-position: -777px; }
+	}
+
+	@-moz-keyframes balloon-animation {
+	   from { background-position:    0px; }
+	     to { background-position: -777px; }
+	}
+
+	@-ms-keyframes balloon-animation {
+	   from { background-position:    0px; }
+	     to { background-position: -777px; }
+	}
+
+	@-o-keyframes balloon-animation {
+	   from { background-position:    0px; }
+	     to { background-position: -777px; }
+	}
+
+	@keyframes balloon-animation {
+	   from { background-position:    0px; }
+	     to { background-position: -777px; }
+	}
+
+</style>
+
+</head>
+<body>
+
+<screen>
+
+	<clown sprite></clown>
+
+	<balloon sprite></balloon>
+	<balloon sprite></balloon>
+	<balloon sprite></balloon>
+	<balloon sprite></balloon>
+	<balloon sprite></balloon>
+
+</screen>
+
+<script>
+
+	(function (undefined) {
+
+		'use strict';
+
+		var spriteWidth = 82, spriteHeight = 123;
+
+		function randomInteger (min,max) {
+			var range = max - min;
+			return min + Math.round(Math.random() * range));
+		}
+
+		var root = this;
+
+		var positions = new Array(50),
+
+			cols = 10,
+			rows = 5,
+
+			balloons = document.getElementsByTagName('balloon'),
+			clown = document.getElementsByTagName('clown')[0],
+
+			sprites = balloons.concat(clown);
+
+		function initialize () {
+
+			var i, l, balloon, position;
+
+			// clown starts in the top left
+			clown.position = 0;
+
+			// randomly distribute the balloons on the screen
+			for ( i = 0, l = balloons.length; i < l; i++) {
+				
+				balloon = balloons[i];
+
+				while ( !balloon.position) {
+					position = randomInteger(1,50);
+					
+					if ( positions[position] ) {
+						continue;
+					}
+
+					balloon.position = position;
+				}
+
+			}
+
+		}
+
+		var SpriteManager = {
+
+			/**
+			shift by -1 to move left, 1 to move right, -10 to move up, +10 to move down,
+			0 to set initial position
+			**/
+			moveSprite: function moveSprite (sprite, shift) {
+
+				switch (shift) {
+
+					case 0:
+
+						var left = sprite.position % 10,
+							top = sprite.position - left / 10;
+
+						sprite.style.left = (left * spriteWidth) + 'px';
+						sprite.style.top = (top * spriteHeight) + 'px';
+
+					break;
+
+					case -1:
+
+					break;
+
+					case 1:
+
+					break;
+
+					case -10:
+
+					break;
+
+					case 10:
+
+					break;
+
+				}
+
+			}
+
+		};
+
+
+	}).call(this);
+
+</script>
+
+</body>
+</html>
