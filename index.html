@@ -134,9 +134,9 @@
 			rows = 5,
 
 			balloons = document.getElementsByTagName('balloon'),
-			clown = document.getElementsByTagName('clown')[0],
+			clown = document.getElementsByTagName('clown')[0];
 
-			sprites = balloons.concat(clown);
+			// sprites = balloons.concat(clown);
 
 		function initialize () {
 
@@ -160,7 +160,11 @@
 					balloon.position = position;
 				}
 
+				SpriteManager.moveSprite(balloon, 0);
+
 			}
+
+			SrpiteManager.moveSprite(clown, 0);
 
 		}
 
