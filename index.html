@@ -115,6 +115,42 @@
 	     to { background-position: -777px; }
 	}
 
+	controls {
+		display: block;
+		margin: 40px auto;
+	}
+
+	controls > *, pause {
+		font-weight: bold;
+		font-size: 100px;
+		background-color: black;
+		color: yellow;
+		border-radius: 100px;
+	}
+
+	left, right {
+		padding: 0 25px;
+		display: inline-block;
+		margin: 0 50px;
+	}
+
+	up, down {
+		display: block;
+		width: 100px;
+		margin: auto;
+	}
+
+	down {
+		transform: rotate(180deg);
+	}
+
+	pause {
+		display: block;
+		width: 100px;
+		margin: auto;
+		transform: rotate(90deg);
+	}
+
 </style>
 
 </head>
@@ -135,9 +171,18 @@
 
 	</screen>
 
+	<controls>
+		<up>^</up>
+		<left>&lt;</left>
+		<right>&gt;</right>
+		<down>^</down>
+	</controls>
+
+	<pause>=</pause>
+
 </game>
 
-<script src="howler.js"></script>
+<script src="howler.min.js"></script>
 <script>
 
 	(function (undefined) {
@@ -146,9 +191,15 @@
 
 		var spriteWidth = 82, spriteHeight = 123;
 
+		var music = new Howl({
+			src: ['sounds/circus-attractions.mp3'],
+			loop: true,
+			volume: 0.3
+		});
+
 		var sounds = [
-			new Howl({ urls: ['sounds/hey-hey.mp3']}),
-			new Howl({ urls: ['sounds/laugh.mp3']})
+			new Howl({ src: ['sounds/hey-hey.mp3']}),
+			new Howl({ src: ['sounds/laugh.mp3']})
 		];
 
 		function randomInteger (min,max) {
@@ -200,6 +251,17 @@
 
 			document.onkeydown = handleKeyDown;
 
+			music.play();
+
+			document.getElementsByTagName('pause')[0].onclick = function () {
+				music.pause();
+			};
+
+			var controls = document.getElementsByTagName('controls')[0].children;
+
+			for (var i = 0; i < controls.length; i++) {
+				controls[i].onclick = handleClicks;
+			}
 		}
 
 		function handleKeyDown (event) {
@@ -211,12 +273,35 @@
 					move = -1;
 				break;
 				case 38:
-					move = -10
+					move = -10;
 				break;
 				case 39:
 					move = 1;
 				break;
 				case 40:
+					move = 10;
+				break;
+			}
+
+			SpriteManager.moveSprite(clown, move);
+		}
+
+		function handleClicks (event) {
+			
+			var button = event.target.tagName.toLowerCase(),
+				move;
+
+			switch (button) {
+				case 'left':
+					move = -1;
+				break;
+				case 'up':
+					move = -10;
+				break;
+				case 'right':
+					move = 1;
+				break;
+				case 'down':
 					move = 10;
 				break;
 			}
