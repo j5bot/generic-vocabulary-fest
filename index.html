@@ -43,15 +43,19 @@
 		left: -30000px;
 	}
 
+	[sprite~=flip] {
+		transform: scaleX(-1);
+	}
+
 	clown {
 		z-index: 2;
-	    background-image: url("http://j5bot.github.io/generic-vocabulary-fest/img/clown-sprite1.png");
+	    background-image: url("img/clown-sprite1.png");
 	    
-	    -webkit-animation: clown-animation 3s steps(8) infinite;
-	       -moz-animation: clown-animation 3s steps(8) infinite;
-	        -ms-animation: clown-animation 3s steps(8) infinite;
-	         -o-animation: clown-animation 3s steps(8) infinite;
-	            animation: clown-animation 3s steps(8) infinite;
+	    -webkit-animation: clown-animation 4s steps(8) infinite;
+	       -moz-animation: clown-animation 4s steps(8) infinite;
+	        -ms-animation: clown-animation 4s steps(8) infinite;
+	         -o-animation: clown-animation 4s steps(8) infinite;
+	            animation: clown-animation 4s steps(8) infinite;
 	}
 
 	@-webkit-keyframes clown-animation {
@@ -79,9 +83,47 @@
 	     to { background-position: -616px; }
 	}
 
+	unicorn {
+		width: 120px !important;
+		height: 123px;
+		z-index: 2;
+	    background-image: url("img/unicorn.png");
+	    
+	    -webkit-animation: unicorn-animation 2s steps(4) infinite;
+	       -moz-animation: unicorn-animation 2s steps(4) infinite;
+	        -ms-animation: unicorn-animation 2s steps(4) infinite;
+	         -o-animation: unicorn-animation 2s steps(4) infinite;
+	            animation: unicorn-animation 2s steps(4) infinite;
+	}
+
+	@-webkit-keyframes unicorn-animation {
+	   from { background-position:    0px; }
+	     to { background-position: -480px; }
+	}
+
+	@-moz-keyframes unicorn-animation {
+	   from { background-position:    0px; }
+	     to { background-position: -480px; }
+	}
+
+	@-ms-keyframes unicorn-animation {
+	   from { background-position:    0px; }
+	     to { background-position: -480px; }
+	}
+
+	@-o-keyframes unicorn-animation {
+	   from { background-position:    0px; }
+	     to { background-position: -480px; }
+	}
+
+	@keyframes unicorn-animation {
+	   from { background-position:    0px; }
+	     to { background-position: -480px; }
+	}
+
 	balloon {
 		z-index: 1;
-	    background-image: url("http://j5bot.github.io/generic-vocabulary-fest/img/balloon-sprite1.png");
+	    background-image: url("img/balloon-sprite1.png");
 	    
 	    -webkit-animation: balloon-animation 6s steps(10) infinite;
 	       -moz-animation: balloon-animation 6s steps(10) infinite;
@@ -162,6 +204,7 @@
 	<screen>
 
 		<clown sprite></clown>
+		<unicorn sprite></unicorn>
 
 		<balloon sprite></balloon>
 		<balloon sprite></balloon>
@@ -202,6 +245,10 @@
 			new Howl({ src: ['sounds/laugh.mp3']})
 		];
 
+		var pop = new Howl({
+			src: ['sounds/balloon-pop.mp3']
+		});
+
 		function randomInteger (min,max) {
 			var range = max - min;
 			return min + Math.round(Math.random() * range);
@@ -215,7 +262,10 @@
 			rows = 5,
 
 			balloons = document.getElementsByTagName('balloon'),
-			clown = document.getElementsByTagName('clown')[0];
+			clown = document.getElementsByTagName('clown')[0],
+			unicorn = document.getElementsByTagName('unicorn')[0],
+
+			movers = [unicorn];
 
 			// sprites = balloons.concat(clown);
 
@@ -225,6 +275,11 @@
 
 			// clown starts in the top left
 			clown.position = 0;
+			unicorn.position = 48;
+			unicorn.spriteWidth = 1;
+
+			positions[0] = clown;
+			positions[48] = positions[49] = unicorn;
 
 			// randomly distribute the balloons on the screen
 			for ( i = 0, l = balloons.length; i < l; i++) {
@@ -246,8 +301,8 @@
 
 			}
 
-			positions[0] = clown;
 			SpriteManager.moveSprite(clown, 0);
+			SpriteManager.moveSprite(unicorn, 0);
 
 			document.onkeydown = handleKeyDown;
 
@@ -262,6 +317,8 @@
 			for (var i = 0; i < controls.length; i++) {
 				controls[i].onclick = handleClicks;
 			}
+
+			SpriteManager.loop();
 		}
 
 		function handleKeyDown (event) {
@@ -311,10 +368,55 @@
 
 		var SpriteManager = {
 
+			lastEventLoop: 0,
+			loopRate: 500,
+
+			loop: function () {
+
+				requestAnimationFrame(SpriteManager.loop);
+
+
+				var time = new Date().valueOf(),
+					since = time - SpriteManager.lastEventLoop;
+
+				if ( since < SpriteManager.loopRate ) {
+					return;
+				}
+
+				SpriteManager.eventLoop();
+				SpriteManager.lastEventLoop = new Date().valueOf();
+			},
+
+			eventLoop: function () {
+
+				var i = 0, l = movers.length,
+					mover, move,
+					moves = [0,-1,-10,10,1,0];
+
+				for (; i < l; i++) {
+					mover = movers[i];
+					move = moves[randomInteger(0, moves.length - 1)];
+					SpriteManager.moveSprite(mover, move);
+				}
+
+			},
+
 			collision: function collision (sprite, occupier) {
 
-				sounds[randomInteger(0,1)].play();
-				occupier.style.left = '-30000px';
+				switch (sprite.tagName.toLowerCase()) {
+					case 'clown':
+						sounds[randomInteger(0,1)].play();
+					break;
+					case 'unicorn':
+						pop.play();
+					break;
+				}
+
+				switch (occupier.tagName.toLowerCase()) {
+					case 'balloon':
+						occupier.style.left = '-30000px';
+					break;					
+				}
 
 			},
 
@@ -324,13 +426,14 @@
 			**/
 			moveSprite: function moveSprite (sprite, shift) {
 
-				var tryPosition = sprite.position + shift;
+				var tryPosition = sprite.position + shift,
+					needWidth = sprite.spriteWidth || 0;
 
 				var left = tryPosition % 10,
 					top = (tryPosition - left) / 10;
 
 				if (
-					left < 0 || left > cols - 1 || top < 0 || top > rows - 1 ||
+					left < 0 || left > (cols - 1 - needWidth) || top < 0 || top > rows - 1 ||
 						(left === 0 && shift === 1) || (left === cols - 1 && shift === -1)
 				) {
 					return;
@@ -341,11 +444,17 @@
 				sprite.style.left = (left * spriteWidth) + 'px';
 				sprite.style.top = (top * spriteHeight) + 'px';
 
-				if ( positions[tryPosition] ) {
-					SpriteManager.collision(sprite, positions[tryPosition]);
+				if (Math.abs(shift) === 1) {
+					sprite.setAttribute('sprite', shift > 0 ? 'flip' : '');
 				}
 
-				positions[tryPosition] = sprite;
+				for ( var i = tryPosition; i <= (tryPosition /* + needWidth */); i++) {
+					if ( positions[i] ) {
+						SpriteManager.collision(sprite, positions[i]);
+					}
+					positions[i] = sprite;
+				}
+
 				sprite.position = tryPosition;
 
 			}
