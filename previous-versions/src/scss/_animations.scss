@@ -1,0 +1,44 @@
+clown {
+
+  z-index: 2;
+
+  background-image: url("img/clown-sprite1.png");
+  animation: clown-animation 4s steps(8) infinite;
+
+}
+
+@keyframes clown-animation {
+   from { background-position:    0px; }
+     to { background-position: -616px; }
+}
+
+unicorn {
+
+  z-index: 2;
+
+  width: 120px !important;
+  height: 123px;
+
+  background-image: url("img/unicorn.png");
+  animation: unicorn-animation 2s steps(4) infinite;
+
+}
+
+@keyframes unicorn-animation {
+   from { background-position:    0px; }
+     to { background-position: -480px; }
+}
+
+balloon {
+
+  z-index: 1;
+
+  background-image: url("img/balloon-sprite1.png");
+  animation: balloon-animation 6s steps(10) infinite;
+
+}
+
+@keyframes balloon-animation {
+   from { background-position:    0px; }
+     to { background-position: -777px; }
+}

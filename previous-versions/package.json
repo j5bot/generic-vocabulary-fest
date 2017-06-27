@@ -1,0 +1,27 @@
+{
+  "name": "generic-vocabulary-fest",
+  "version": "1.0.0",
+  "description": "A silly little game where you gather balloons.",
+  "main": "index.js",
+  "scripts": {
+    "build-task:scss-compile": "node-sass --source-map true src/scss/ -o dist/css",
+    "build-task:autoprefixer": "postcss dist/css/*.css --use autoprefixer -d dist/css",
+    "sass:build": "npm-run-all -p build-task:*"
+  },
+  "repository": "https://j5bot@github.com/j5bot/generic-vocabulary-fest.git",
+  "author": "Jonathan 'J5' Cook <jonathan.j5.cook@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/j5bot/generic-vocabulary-fest/issues"
+  },
+  "homepage": "https://github.com/j5bot/generic-vocabulary-fest",
+  "devDependencies": {
+    "autoprefixer": "^7.1.1",
+    "node-sass": "^4.5.3",
+    "npm-run-all": "^4.0.2",
+    "postcss-cli": "^4.1.0"
+  },
+  "dependencies": {
+    "howler": "^2.0.4"
+  }
+}

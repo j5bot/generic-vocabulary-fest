@@ -1,0 +1,19 @@
+{
+  "name": "generic-vocabulary-fest",
+  "homepage": "https://github.com/j5bot/generic-vocabulary-fest",
+  "authors": [
+    "Jonathan 'J5' Cook <jonathan.j5.cook@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "N/A",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

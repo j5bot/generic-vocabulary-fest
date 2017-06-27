@@ -1,0 +1,51 @@
+[data-controls] {
+
+  display: block;
+  margin: 40px auto;
+
+}
+
+[data-controls] > *, pause {
+
+  background-color: black;
+  color: yellow;
+
+  font-weight: bold;
+  font-size: 100px;
+
+  border-radius: 100px;
+
+}
+
+[data-left], [data-right] {
+
+  display: inline-block;
+
+  margin: 0 50px;
+  padding: 0 25px;
+
+}
+
+[data-up], [data-down] {
+
+  display: block;
+
+  width: 100px;
+  margin: auto;
+
+}
+
+[data-down] {
+  transform: rotate(180deg);
+}
+
+[data-pause] {
+
+  display: block;
+
+  width: 100px;
+  margin: auto;
+
+  transform: rotate(90deg);
+
+}

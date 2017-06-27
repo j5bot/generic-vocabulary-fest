@@ -1,0 +1,13 @@
+[data-clown] {
+
+  z-index: 2;
+
+  background-image: url("/img/clown-sprite1.png");
+  animation: clown-animation 4s steps(8) infinite;
+
+}
+
+@keyframes clown-animation {
+   from { background-position:    0px; }
+     to { background-position: -616px; }
+}

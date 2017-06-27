@@ -1,0 +1,51 @@
+controls {
+
+  display: block;
+  margin: 40px auto;
+
+}
+
+controls > *, pause {
+
+  background-color: black;
+  color: yellow;
+
+  font-weight: bold;
+  font-size: 100px;
+
+  border-radius: 100px;
+
+}
+
+left, right {
+
+  display: inline-block;
+
+  margin: 0 50px;
+  padding: 0 25px;
+
+}
+
+up, down {
+
+  display: block;
+
+  width: 100px;
+  margin: auto;
+
+}
+
+down {
+  transform: rotate(180deg);
+}
+
+pause {
+
+  display: block;
+
+  width: 100px;
+  margin: auto;
+
+  transform: rotate(90deg);
+
+}

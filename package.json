@@ -1,0 +1,35 @@
+{
+  "name": "generic-vocabulary-fest",
+  "version": "1.0.0",
+  "description": "A silly little game in which you play a clown who must collect all of the balloons before a unicorn pops them.",
+  "repository": "https://j5bot@github.com/j5bot/generic-vocabulary-fest.git",
+  "author": "Jonathan 'J5' Cook <jonathan.j5.cook@gmail.com>",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "bugs": {
+    "url": "https://github.com/j5bot/generic-vocabulary-fest/issues"
+  },
+  "homepage": "https://github.com/j5bot/generic-vocabulary-fest",
+  "private": true,
+  "dependencies": {
+    "fsevents": "1.1.2",
+    "howler": "^2.0.4",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.5",
+    "redux": "^3.7.1"
+  },
+  "devDependencies": {
+    "node-sass-chokidar": "0.0.3",
+    "npm-run-all": "^4.0.2",
+    "postcss-cli": "^4.1.0",
+    "react-scripts": "1.0.7"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "build-css": "node-sass-chokidar --include-path ./node_modules src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive"
+  }
+}

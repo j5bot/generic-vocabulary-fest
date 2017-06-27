@@ -1,0 +1,13 @@
+balloon {
+
+  z-index: 1;
+
+  background-image: url("/img/balloon-sprite1.png");
+  animation: balloon-animation 6s steps(10) infinite;
+
+}
+
+@keyframes balloon-animation {
+   from { background-position:    0px; }
+     to { background-position: -777px; }
+}

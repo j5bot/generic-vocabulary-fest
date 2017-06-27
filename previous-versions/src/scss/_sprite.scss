@@ -1,0 +1,20 @@
+[sprite] {
+
+  position: absolute;
+
+  top: 0px;
+  left: -30000px;
+
+  width: 77px;
+  height: 123px;
+
+  display: block;
+
+  margin-left: 3px;
+  margin-right: 2px;
+
+}
+
+[sprite~=flip] {
+  transform: scaleX(-1);
+}
