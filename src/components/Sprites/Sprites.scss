@@ -1,3 +1,9 @@
+$spriteWidth: 82;
+$spriteHeight: 123;
+
+$rows: 5;
+$columns: 10;
+
 [data-sprite] {
 
   position: absolute;
@@ -17,4 +23,11 @@
 
 [data-sprite~=flip] {
   transform: scaleX(-1);
+}
+
+@for $position from 0 to 49 {
+  [data-sprite-position="#{$position}"] {
+    top: ($position - ($position % $columns)) * $spriteHeight + px;
+    left: ($position % $columns) * $spriteHeight + px;
+  }
 }

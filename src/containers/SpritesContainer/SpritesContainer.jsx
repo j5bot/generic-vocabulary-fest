@@ -1,7 +1,8 @@
-// import React from 'react';
 import { connect } from 'react-redux';
 
 import { Sprites } from '../../components';
+
+import spriteActionCreators from '../../actions/sprite';
 
 const mapStateToProps = (state, ownProps) => {
 
@@ -12,6 +13,6 @@ const mapStateToProps = (state, ownProps) => {
 
 };
 
-export const SpritesContainer = connect( mapStateToProps )( Sprites );
+export const SpritesContainer = connect( mapStateToProps, spriteActionCreators )( Sprites );
 
 export default Sprites;

@@ -2,7 +2,7 @@ import React from 'react';
 
 export const Unicorn = ( props ) => {
   return (
-    <i data-unicorn data-sprite />
+    <i data-unicorn data-sprite { ...props } />
   );
 }
 

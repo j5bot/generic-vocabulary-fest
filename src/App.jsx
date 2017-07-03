@@ -4,16 +4,6 @@ import { GameContainer } from './containers';
 
 import { Clown, Unicorn, Balloon } from './components';
 
-// let sprites = [
-//   'Clown',
-//   'Unicorn',
-//   'Balloon',
-//   'Balloon',
-//   'Balloon',
-//   'Balloon',
-//   'Balloon'
-// ];
-
 let sprites = [
   Clown,
   Unicorn,

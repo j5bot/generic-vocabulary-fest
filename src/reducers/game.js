@@ -1,17 +1,7 @@
 const DEFAULT_STATE = {
 
   positions: [],
-  spriteStates: [
-    // clown
-    {
-      position: 0
-    },
-    // unicorn
-    {
-      position: 48,
-      width: 2
-    }
-  ]
+  spriteStates: []
 
 };
 

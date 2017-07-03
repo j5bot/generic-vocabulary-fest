@@ -2,7 +2,11 @@ import React from 'react';
 
 export const Sprites = ( props ) => {
 
-  let { sprites, spriteStates } = props;
+  let { dispatch, sprites, spriteStates } = props;
+
+  let {
+    createInitializeSpriteAction
+  } = props;
 
   let spriteIndex = 0;
 
@@ -16,14 +20,13 @@ export const Sprites = ( props ) => {
           let sprite = spriteStates[ index ];
 
           if (!sprite) {
-            // dispatch initialize
+            createInitializeSpriteAction( sprite );
           }
 
           return (
             <Sprite
               key={ 'sprite' + index }
               data-index={ index }
-
             />
           );
         })

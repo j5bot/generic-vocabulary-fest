@@ -6,7 +6,7 @@ const BalloonTagname = 'balloon';
 
 export const Balloon = ( props ) => {
   return (
-    <BalloonTagname data-sprite />
+    <BalloonTagname data-sprite { ...props } />
   );
 }
 
