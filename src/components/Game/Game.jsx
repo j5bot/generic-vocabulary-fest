@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Screen } from '../';
+import { Start } from '../';
 import { SpritesContainer } from '../../containers';
 import { Controls } from '../';
 
@@ -8,7 +9,7 @@ import './Game.css';
 
 export const Game = ( props ) => {
 
-  let { sprites } = props;
+  let { started } = props;
 
   return (
     <div data-game>
@@ -18,7 +19,12 @@ export const Game = ( props ) => {
       </h1>
 
       <Screen>
-        <SpritesContainer sprites={ sprites } />
+        { !started && (
+          <Start { ...props }/>
+        ) }
+        { started && (
+          <SpritesContainer { ...props } />
+        ) }
       </Screen>
 
       <Controls />

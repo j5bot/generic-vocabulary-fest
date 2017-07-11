@@ -27,7 +27,7 @@ $columns: 10;
 
 @for $position from 0 to 49 {
   [data-sprite-position="#{$position}"] {
-    top: ($position - ($position % $columns)) * $spriteHeight + px;
-    left: ($position % $columns) * $spriteHeight + px;
+    top: ( ($position - ($position % $columns) ) / 10) * $spriteHeight + px;
+    left: ($position % $columns) * $spriteWidth + px;
   }
 }

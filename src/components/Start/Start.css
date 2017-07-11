@@ -1,0 +1,13 @@
+[data-start] {
+  width: 16rem;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: auto;
+  color: black;
+  background-color: #999;
+  border-radius: 2rem;
+  font-family: 'Audiowide', monospace;
+  font-size: 3rem;
+  text-transform: uppercase;
+  cursor: pointer; }

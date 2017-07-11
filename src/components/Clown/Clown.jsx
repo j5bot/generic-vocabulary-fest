@@ -1,10 +1,11 @@
 import React from 'react';
-
 import './Clown.css';
+
+const ClownTagName = 'clown';
 
 export const Clown = ( props ) => {
   return (
-    <i data-clown data-sprite { ...props } />
+    <ClownTagName data-sprite { ...props } />
   );
 }
 

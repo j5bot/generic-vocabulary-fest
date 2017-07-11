@@ -1,23 +1,16 @@
-// import React from 'react';
 import { connect } from 'react-redux';
 
 import { Game } from '../../components';
 
+import startActionCreators from '../../actions/start';
+
+
 const mapStateToProps = (state, ownProps) => {
 
-  return { positions: state.positions };
+  return { positions: state.positions, started: state.started };
 
 };
 
-export const GameContainer = connect( mapStateToProps )( Game );
-
-// export const GameContainer = ( props ) => {
-
-//   let { sprites } = props;
-
-//   return (
-//     <Game sprites={ sprites } />
-//   );
-// };
+export const GameContainer = connect( mapStateToProps, startActionCreators )( Game );
 
 export default GameContainer;

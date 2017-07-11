@@ -1,8 +1,11 @@
 import React from 'react';
+import './Unicorn.css';
+
+const UnicornTagName = 'unicorn';
 
 export const Unicorn = ( props ) => {
   return (
-    <i data-unicorn data-sprite { ...props } />
+    <UnicornTagName data-sprite { ...props } />
   );
 }
 

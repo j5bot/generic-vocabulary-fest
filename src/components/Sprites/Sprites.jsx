@@ -1,14 +1,13 @@
 import React from 'react';
+import './Sprites.css';
 
 export const Sprites = ( props ) => {
 
-  let { dispatch, sprites, spriteStates } = props;
+  let { sprites, spriteStates, gamePositions } = props;
 
   let {
     createInitializeSpriteAction
   } = props;
-
-  let spriteIndex = 0;
 
   debugger;
 
@@ -20,13 +19,21 @@ export const Sprites = ( props ) => {
           let sprite = spriteStates[ index ];
 
           if (!sprite) {
-            createInitializeSpriteAction( sprite );
+
+            debugger;
+
+            const gamePosition = gamePositions.start[ Sprite.name ];
+
+            createInitializeSpriteAction( { sprite: Sprite, start: gamePosition, length: gamePositions.length, index: index } );
+
+            return null;
           }
 
           return (
             <Sprite
               key={ 'sprite' + index }
               data-index={ index }
+              data-sprite-position={ sprite.position }
             />
           );
         })

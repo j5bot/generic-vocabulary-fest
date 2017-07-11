@@ -10,3 +10,199 @@
 
 [data-sprite~=flip] {
   transform: scaleX(-1); }
+
+[data-sprite-position="0"] {
+  top: 0px;
+  left: 0px; }
+
+[data-sprite-position="1"] {
+  top: 0px;
+  left: 82px; }
+
+[data-sprite-position="2"] {
+  top: 0px;
+  left: 164px; }
+
+[data-sprite-position="3"] {
+  top: 0px;
+  left: 246px; }
+
+[data-sprite-position="4"] {
+  top: 0px;
+  left: 328px; }
+
+[data-sprite-position="5"] {
+  top: 0px;
+  left: 410px; }
+
+[data-sprite-position="6"] {
+  top: 0px;
+  left: 492px; }
+
+[data-sprite-position="7"] {
+  top: 0px;
+  left: 574px; }
+
+[data-sprite-position="8"] {
+  top: 0px;
+  left: 656px; }
+
+[data-sprite-position="9"] {
+  top: 0px;
+  left: 738px; }
+
+[data-sprite-position="10"] {
+  top: 123px;
+  left: 0px; }
+
+[data-sprite-position="11"] {
+  top: 123px;
+  left: 82px; }
+
+[data-sprite-position="12"] {
+  top: 123px;
+  left: 164px; }
+
+[data-sprite-position="13"] {
+  top: 123px;
+  left: 246px; }
+
+[data-sprite-position="14"] {
+  top: 123px;
+  left: 328px; }
+
+[data-sprite-position="15"] {
+  top: 123px;
+  left: 410px; }
+
+[data-sprite-position="16"] {
+  top: 123px;
+  left: 492px; }
+
+[data-sprite-position="17"] {
+  top: 123px;
+  left: 574px; }
+
+[data-sprite-position="18"] {
+  top: 123px;
+  left: 656px; }
+
+[data-sprite-position="19"] {
+  top: 123px;
+  left: 738px; }
+
+[data-sprite-position="20"] {
+  top: 246px;
+  left: 0px; }
+
+[data-sprite-position="21"] {
+  top: 246px;
+  left: 82px; }
+
+[data-sprite-position="22"] {
+  top: 246px;
+  left: 164px; }
+
+[data-sprite-position="23"] {
+  top: 246px;
+  left: 246px; }
+
+[data-sprite-position="24"] {
+  top: 246px;
+  left: 328px; }
+
+[data-sprite-position="25"] {
+  top: 246px;
+  left: 410px; }
+
+[data-sprite-position="26"] {
+  top: 246px;
+  left: 492px; }
+
+[data-sprite-position="27"] {
+  top: 246px;
+  left: 574px; }
+
+[data-sprite-position="28"] {
+  top: 246px;
+  left: 656px; }
+
+[data-sprite-position="29"] {
+  top: 246px;
+  left: 738px; }
+
+[data-sprite-position="30"] {
+  top: 369px;
+  left: 0px; }
+
+[data-sprite-position="31"] {
+  top: 369px;
+  left: 82px; }
+
+[data-sprite-position="32"] {
+  top: 369px;
+  left: 164px; }
+
+[data-sprite-position="33"] {
+  top: 369px;
+  left: 246px; }
+
+[data-sprite-position="34"] {
+  top: 369px;
+  left: 328px; }
+
+[data-sprite-position="35"] {
+  top: 369px;
+  left: 410px; }
+
+[data-sprite-position="36"] {
+  top: 369px;
+  left: 492px; }
+
+[data-sprite-position="37"] {
+  top: 369px;
+  left: 574px; }
+
+[data-sprite-position="38"] {
+  top: 369px;
+  left: 656px; }
+
+[data-sprite-position="39"] {
+  top: 369px;
+  left: 738px; }
+
+[data-sprite-position="40"] {
+  top: 492px;
+  left: 0px; }
+
+[data-sprite-position="41"] {
+  top: 492px;
+  left: 82px; }
+
+[data-sprite-position="42"] {
+  top: 492px;
+  left: 164px; }
+
+[data-sprite-position="43"] {
+  top: 492px;
+  left: 246px; }
+
+[data-sprite-position="44"] {
+  top: 492px;
+  left: 328px; }
+
+[data-sprite-position="45"] {
+  top: 492px;
+  left: 410px; }
+
+[data-sprite-position="46"] {
+  top: 492px;
+  left: 492px; }
+
+[data-sprite-position="47"] {
+  top: 492px;
+  left: 574px; }
+
+[data-sprite-position="48"] {
+  top: 492px;
+  left: 656px; }

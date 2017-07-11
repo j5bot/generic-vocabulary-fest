@@ -14,10 +14,20 @@ let sprites = [
   Balloon
 ];
 
+let gamePositions = {
+  start: {
+    Clown: 0,
+    Unicorn: 48
+  },
+  rows: 5,
+  columns: 10,
+  length: 50
+};
+
 export const App = ( props ) => {
 
   return (
-    <GameContainer sprites={ sprites }></GameContainer>
+    <GameContainer sprites={ sprites } gamePositions={ gamePositions }></GameContainer>
   );
 
 };

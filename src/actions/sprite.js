@@ -1,6 +1,3 @@
-const SPRITE_WIDTH = 82;
-const SPRITE_HEIGHT = 123;
-
 const INITIALIZE_SPRITES = Symbol('INITIALIZE_SPRITES');
 const INITIALIZE_SPRITE = Symbol('INITIALIZE_SPRITE');
 const ATTEMPT_MOVE = Symbol('ATTEMPT_MOVE');
@@ -17,12 +14,15 @@ export const actionTypes = {
   FLIP_SPRITE
 }
 
-export const createInitializeSpriteAction = ( sprite ) => {
+export const createInitializeSpriteAction = ( { sprite, start, length, index } ) => {
 
   return {
     type: INITIALIZE_SPRITE,
     payload: {
-      sprite
+      sprite,
+      start,
+      length,
+      index
     }
   }
 
