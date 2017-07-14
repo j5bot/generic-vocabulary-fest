@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import { Game } from '../../components';
 
-import startActionCreators from '../../actions/start';
+import actionCreators from '../../actions';
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -11,6 +11,6 @@ const mapStateToProps = (state, ownProps) => {
 
 };
 
-export const GameContainer = connect( mapStateToProps, startActionCreators )( Game );
+export const GameContainer = connect( mapStateToProps, actionCreators )( Game );
 
 export default GameContainer;

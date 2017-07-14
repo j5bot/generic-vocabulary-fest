@@ -3,13 +3,7 @@ import './Sprites.css';
 
 export const Sprites = ( props ) => {
 
-  let { sprites, spriteStates, gamePositions } = props;
-
-  let {
-    createInitializeSpriteAction
-  } = props;
-
-  debugger;
+  let { sprites, spriteStates } = props;
 
   return (
     <div data-sprites>
@@ -18,20 +12,10 @@ export const Sprites = ( props ) => {
 
           let sprite = spriteStates[ index ];
 
-          if (!sprite) {
-
-            debugger;
-
-            const gamePosition = gamePositions.start[ Sprite.name ];
-
-            createInitializeSpriteAction( { sprite: Sprite, start: gamePosition, length: gamePositions.length, index: index } );
-
-            return null;
-          }
-
           return (
             <Sprite
               key={ 'sprite' + index }
+              data-sprite={ sprite.flip }
               data-index={ index }
               data-sprite-position={ sprite.position }
             />

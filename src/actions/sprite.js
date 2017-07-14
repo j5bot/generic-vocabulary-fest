@@ -1,17 +1,11 @@
-const INITIALIZE_SPRITES = Symbol('INITIALIZE_SPRITES');
 const INITIALIZE_SPRITE = Symbol('INITIALIZE_SPRITE');
-const ATTEMPT_MOVE = Symbol('ATTEMPT_MOVE');
 const HIDE_SPRITE = Symbol('HIDE_SPRITE');
 const MOVE_SPRITE = Symbol('MOVE_SPRITE');
-const FLIP_SPRITE = Symbol('FLIP_SPRITE');
 
 export const actionTypes = {
-  INITIALIZE_SPRITES,
   INITIALIZE_SPRITE,
-  ATTEMPT_MOVE,
   HIDE_SPRITE,
-  MOVE_SPRITE,
-  FLIP_SPRITE
+  MOVE_SPRITE
 }
 
 export const createInitializeSpriteAction = ( { sprite, start, length, index } ) => {
@@ -28,26 +22,6 @@ export const createInitializeSpriteAction = ( { sprite, start, length, index } )
 
 };
 
-export const createInitializeSpritesAction = () => {
-
-  return {
-    type: INITIALIZE_SPRITES
-  };
-
-};
-
-export const createAttemptMoveAction = ( sprite, shift ) => {
-
-  return {
-    type: ATTEMPT_MOVE,
-    payload: {
-      sprite,
-      shift
-    }
-  };
-
-};
-
 export const createHideSpriteAction = ( sprite ) => {
 
   return {
@@ -59,36 +33,20 @@ export const createHideSpriteAction = ( sprite ) => {
 
 };
 
-export const createMoveAction = ( sprite, top, left ) => {
+export const createMoveSpriteAction = ( { index, move } ) => {
 
   return {
     type: MOVE_SPRITE,
     payload: {
-      sprite,
-      top,
-      left
+      spriteIndex: index,
+      move
     }
   };
 
 }
 
-export const createFlipAction = ( sprite, shift ) => {
-
-  return {
-    type: FLIP_SPRITE,
-    payload: {
-      sprite,
-      shift
-    }
-  };
-
-};
-
 export default {
-  createAttemptMoveAction,
-  createFlipAction,
   createHideSpriteAction,
   createInitializeSpriteAction,
-  createInitializeSpritesAction,
-  createMoveAction
+  createMoveSpriteAction
 };

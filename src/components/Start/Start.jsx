@@ -6,7 +6,7 @@ export const Start = ( props ) => {
   let { createStartGameAction } = props;
 
   return (
-      <div data-start onClick={ createStartGameAction }>start</div>
+      <button data-start onClick={ () => createStartGameAction( props ) }>start</button>
   );
 
 };

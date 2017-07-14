@@ -9,10 +9,10 @@ import './Game.css';
 
 export const Game = ( props ) => {
 
-  let { started } = props;
+  let { started, createHandleKeyDownAction } = props;
 
   return (
-    <div data-game>
+    <div data-game tabIndex="0" onKeyDown={ createHandleKeyDownAction }>
 
       <h1>
         <img src="img/title.png" alt="GENERIC VOCABULARY FEST" />

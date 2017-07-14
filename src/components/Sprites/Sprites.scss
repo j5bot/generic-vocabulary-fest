@@ -25,7 +25,7 @@ $columns: 10;
   transform: scaleX(-1);
 }
 
-@for $position from 0 to 49 {
+@for $position from 0 to 50 {
   [data-sprite-position="#{$position}"] {
     top: ( ($position - ($position % $columns) ) / 10) * $spriteHeight + px;
     left: ($position % $columns) * $spriteWidth + px;
