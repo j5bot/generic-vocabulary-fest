@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Screen } from '../';
 import { Start } from '../';
+import { GameOver } from '../';
+import { VocabularyWord } from '../';
 import { SpritesContainer } from '../../containers';
 import { Controls } from '../';
 
@@ -9,7 +11,7 @@ import './Game.css';
 
 export const Game = ( props ) => {
 
-  let { started, createHandleKeyDownAction } = props;
+  let { started, createHandleKeyDownAction, gameOver } = props;
 
   return (
     <div data-game tabIndex="0" onKeyDown={ createHandleKeyDownAction }>
@@ -19,11 +21,18 @@ export const Game = ( props ) => {
       </h1>
 
       <Screen>
+
         { !started && (
           <Start { ...props }/>
         ) }
         { started && (
-          <SpritesContainer { ...props } />
+          <div>
+            <VocabularyWord { ...props } />
+            <SpritesContainer { ...props } />
+          </div>
+        ) }
+        { gameOver && (
+          <GameOver />
         ) }
       </Screen>
 

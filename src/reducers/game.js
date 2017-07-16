@@ -1,6 +1,7 @@
 import { randomInteger } from '../modules/utils';
 import { randomMember} from '../modules/utils';
 import { music, sounds, pop } from '../modules/sounds';
+import { vocabulary } from '../modules/vocabulary';
 
 import actions from '../actions';
 
@@ -42,6 +43,7 @@ const processEvents = ( context ) => {
 
   }
 
+  // object mutation
   context.lastTime = new Date().valueOf();
 
   return loop( context );
@@ -53,7 +55,8 @@ const DEFAULT_STATE = {
 
   positions: { },
   spriteStates: { },
-  loop: { }
+  loop: { },
+  term: { visible: false }
 
 };
 
@@ -90,7 +93,7 @@ export const game = ( state = DEFAULT_STATE, action ) => {
 
     if ( sprite.position ) {
       if ( start ) {
-        delete positions.start;
+        delete positions[ start ];
       }
       positions = { ...positions, [sprite.position]: index };
     }
@@ -103,6 +106,8 @@ export const game = ( state = DEFAULT_STATE, action ) => {
   const createHideSpriteState = ( context ) => {
 
     let { previousState, sprite } = context;
+
+    // console.log( `hide ${ sprite.name } from position ${ sprite.position }` );
 
     return createSetSpriteState( {
 
@@ -118,6 +123,26 @@ export const game = ( state = DEFAULT_STATE, action ) => {
 
   };
 
+  const createVocabularyTermState = ( context ) => {
+
+    let { previousState, term } = context;
+
+    term = { ...term, visible: true };
+
+    return { ...previousState, term };
+
+  };
+
+  /**
+   * createCollideSpriteState
+   *
+   * @param context                 execution context for this ..
+   *                                destructures to values needed to do the
+   *                                work
+   * @return { cancel, newState }   return whether to cancel movement which
+   *                                caused the collision and the new state
+   *                                after the collision
+   **/
   const createCollideSpriteState = ( context ) => {
 
     let {
@@ -166,47 +191,67 @@ export const game = ( state = DEFAULT_STATE, action ) => {
 
     if ( clown && unicorn ) {
 
+      previousState = { ...previousState, gameOver: true };
+
       // end game
-      return createHideSpriteState( {
-        previousState,
-        sprite: clown,
-        position
-      } );
+      return {
+        cancel: clown === sprite1,
+        newState: createHideSpriteState( {
+          previousState,
+          sprite: clown,
+          position
+        } )
+      };
 
     }
 
     if ( clown && balloon ) {
 
+      // side effects
       pop.play();
       randomMember( sounds ).play();
 
-      return createHideSpriteState( {
+      // set the current vocabulary term
+      previousState = createVocabularyTermState( {
         previousState,
-        sprite: balloon,
-        position
+        term: randomMember( vocabulary )
       } );
+
+      return {
+        cancel: balloon === sprite1,
+        newState: createHideSpriteState( {
+          previousState,
+          sprite: balloon,
+          position
+        } )
+      };
 
     }
 
     if ( unicorn && balloon ) {
 
+      // side effect
       pop.play();
 
-      return createHideSpriteState( {
-        previousState,
-        sprite: balloon,
-        position
-      } );
+      return {
+        cancel: balloon === sprite1,
+        newState: createHideSpriteState( {
+          previousState,
+          sprite: balloon,
+          position
+        } )
+      };
 
     }
 
     if ( balloon && balloon2 ) {
 
       // cancel move
-      return false;
+      return { cancel: true, newState: previousState };
 
     }
 
+    return { cancel: true, newState: previousState };
 
   };
 
@@ -246,7 +291,14 @@ export const game = ( state = DEFAULT_STATE, action ) => {
   };
 
   // used throughout cases
-  let spriteIndex, move, flip;
+  let sprite,
+      index,
+      start,
+      position,
+      width,
+      move,
+      flip,
+      length;
 
   switch ( action.type ) {
 
@@ -257,21 +309,27 @@ export const game = ( state = DEFAULT_STATE, action ) => {
 
       sprites.map( ( Sprite, index ) => {
 
-        const sprite = spriteStates[ index ];
+        sprite = spriteStates[ index ];
 
         if (!sprite) {
 
-          const gamePosition = gamePositions.start[ Sprite.name ];
-          const gameWidth = gamePositions.width[ Sprite.name ];
+          // const gamePosition = gamePositions.start[ Sprite.name ];
+          // width = gamePositions.width[ Sprite.name ];
+
+          ({
+            start: { [Sprite.name]: start },
+            width: { [Sprite.name]: width },
+            length
+          } = gamePositions);
 
           newState = game( newState, {
 
             type: SPRITE_ACTION_TYPES.INITIALIZE_SPRITE,
             payload: {
               sprite: Sprite,
-              start: gamePosition,
-              width: gameWidth,
-              length: gamePositions.length,
+              start,
+              width,
+              length,
               index
             }
 
@@ -295,7 +353,7 @@ export const game = ( state = DEFAULT_STATE, action ) => {
     case START_ACTION_TYPES.KEY_DOWN:
 
       let { code } = action.payload;
-      spriteIndex = 0;
+      index = 0;
 
       switch ( code ) {
         case 37:
@@ -319,7 +377,7 @@ export const game = ( state = DEFAULT_STATE, action ) => {
         type: SPRITE_ACTION_TYPES.MOVE_SPRITE,
         payload: {
           move,
-          spriteIndex
+          index
         }
 
       } );
@@ -328,17 +386,17 @@ export const game = ( state = DEFAULT_STATE, action ) => {
 
     case SPRITE_ACTION_TYPES.MOVE_SPRITE:
 
-      ({ move, spriteIndex } = action.payload);
+      ({ move, index } = action.payload);
 
       let cancel = false;
 
-      const spriteState = state.spriteStates[ spriteIndex ];
-      let position = spriteState.position;
-      const spriteWidth = spriteState.width;
+      sprite = state.spriteStates[ index ];
+
+      ({ position, width } = sprite);
 
       if ( move !== 0 && canMove( {
         position,
-        width: spriteWidth,
+        width,
         move
       }) ) {
 
@@ -348,29 +406,33 @@ export const game = ( state = DEFAULT_STATE, action ) => {
 
         if ( occupier ) {
 
-          newState = createCollideSpriteState( {
+          (
+            { cancel, newState } = createCollideSpriteState( {
 
-            previousState: newState,
+              previousState: newState,
 
-            index: spriteIndex,
-            occupier,
-            position
+              index,
+              occupier,
+              position
 
-          }) || ( cancel = true && newState );
+            })
+          );
 
         }
 
         if ( cancel ) {
+          // console.log( `cancelled movement of ${ sprite.name } at ${ position - move }`);
           break;
         }
 
-        flip = Math.abs( move ) === 1 ? 'flip' : '';
+        flip = Math.abs( move ) === 1 ?
+          ( move === 1 ? 'flip' : '' ) : sprite.flip;
 
         newState = createSetSpriteState( {
 
           previousState: newState,
 
-          index: spriteIndex,
+          index,
           start: position - move,
 
           sprite: {
@@ -388,7 +450,7 @@ export const game = ( state = DEFAULT_STATE, action ) => {
 
       flip = '';
 
-      let { sprite, start, width, length, index } = action.payload;
+      ({ sprite, start, width, length, index } = action.payload);
       let { positions } = state;
 
       if ( start !== 0 && !start ) {

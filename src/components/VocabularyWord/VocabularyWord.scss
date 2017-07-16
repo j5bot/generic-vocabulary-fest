@@ -1,0 +1,28 @@
+[data-vocabulary-word] {
+
+  margin: 4rem;
+
+  color: #ccc;
+
+  font-size: 1.5rem;
+
+  opacity: 0.5;
+
+  dt {
+    color: #fff;
+    font-family: 'Audiowide', monospace;
+    text-transform: uppercase;
+  }
+
+  dd {
+    margin-top: 0.5rem;
+    font-family: monospace;
+    text-align: left;
+  }
+
+  .usage {
+    display: block;
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+}

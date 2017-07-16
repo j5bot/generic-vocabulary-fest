@@ -7,7 +7,12 @@ import actionCreators from '../../actions';
 
 const mapStateToProps = (state, ownProps) => {
 
-  return { positions: state.positions, started: state.started };
+  return {
+    positions: state.positions,
+    started: state.started,
+    gameOver: state.gameOver,
+    term: state.term
+  };
 
 };
 

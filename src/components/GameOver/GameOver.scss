@@ -1,0 +1,18 @@
+[data-game-over] {
+
+  position: absolute;
+  z-index: 1000;
+
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 100%;
+
+  color: black;
+  background-color: limegreen;
+
+  font-family: 'Audiowide', monospace;
+  font-size: 3rem;
+  text-transform: uppercase;
+
+}

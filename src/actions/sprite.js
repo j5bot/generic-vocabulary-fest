@@ -38,7 +38,7 @@ export const createMoveSpriteAction = ( { index, move } ) => {
   return {
     type: MOVE_SPRITE,
     payload: {
-      spriteIndex: index,
+      index,
       move
     }
   };
