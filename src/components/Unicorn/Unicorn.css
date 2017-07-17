@@ -2,7 +2,7 @@ unicorn {
   z-index: 2;
   width: 120px !important;
   height: 123px;
-  background-image: url("/img/unicorn.png");
+  background-image: url("/generic-vocabulary-fest/img/unicorn.png");
   animation: unicorn-animation 2s steps(4) infinite; }
 
 @keyframes unicorn-animation {

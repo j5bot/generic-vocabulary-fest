@@ -5,7 +5,6 @@ import { Start } from '../';
 import { GameOver } from '../';
 import { VocabularyWord } from '../';
 import { SpritesContainer } from '../../containers';
-import { Controls } from '../';
 
 import './Game.css';
 
@@ -35,8 +34,6 @@ export const Game = ( props ) => {
           <GameOver />
         ) }
       </Screen>
-
-      <Controls />
 
     </div>
   );
